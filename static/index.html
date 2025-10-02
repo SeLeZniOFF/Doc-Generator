@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DocGen</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+    <h1 class="mb-4">DocGen – генерация документов</h1>
+
+    <div class="row g-4">
+      <!-- Entities -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Сущности</h5>
+            <form id="entity-form" class="row gy-2">
+              <div class="col-12">
+                <label class="form-label">Название</label>
+                <input class="form-control" name="name" placeholder="ФИО" required />
+              </div>
+              <div class="col-12">
+                <label class="form-label">Код (включая скобки)</label>
+                <input class="form-control" name="code" placeholder="{FIO}" required />
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary w-100">Добавить</button>
+              </div>
+            </form>
+            <hr />
+            <div id="entities-list" class="small"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clients -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Клиенты</h5>
+            <form id="client-form" class="row gy-2">
+              <div class="col-12">
+                <label class="form-label">Имя клиента</label>
+                <input class="form-control" name="name" placeholder="ООО Ромашка" required />
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary w-100">Добавить</button>
+              </div>
+            </form>
+            <hr />
+            <div id="clients-list" class="small"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Значения</h5>
+            <form id="value-form" class="row gy-2">
+              <div class="col-12">
+                <label class="form-label">Сущность</label>
+                <select class="form-select" name="entity_id" id="entity-select"></select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Клиент</label>
+                <select class="form-select" name="client_id" id="client-select"></select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Значение</label>
+                <textarea class="form-control" name="value_text" rows="2" placeholder="Иванов Иван Иванович"></textarea>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-primary w-100">Сохранить</button>
+              </div>
+            </form>
+            <hr />
+            <div id="values-list" class="small"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mt-1">
+      <!-- Templates upload -->
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Шаблон (.docx)</h5>
+            <form id="template-form" class="row gy-2" enctype="multipart/form-data">
+              <div class="col-12">
+                <input type="file" class="form-control" name="file" accept=".docx" required />
+              </div>
+              <div class="col-12">
+                <button class="btn btn-secondary w-100">Загрузить шаблон</button>
+              </div>
+            </form>
+            <hr />
+            <div id="templates-list" class="small"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generation -->
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Генерация документа</h5>
+            <form id="generate-form" class="row gy-2">
+              <div class="col-12">
+                <label class="form-label">Шаблон</label>
+                <select class="form-select" name="template_id" id="template-select"></select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Клиенты (множественный выбор)</label>
+                <select multiple class="form-select" name="client_ids" id="clients-multi"></select>
+                <div class="form-text">Зажмите Ctrl/Cmd для выбора нескольких.</div>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Если значения нет</label>
+                <select class="form-select" name="on_missing">
+                  <option value="keep">Оставить placeholder</option>
+                  <option value="error">Остановить с ошибкой</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <button class="btn btn-success w-100">Сгенерировать</button>
+              </div>
+            </form>
+
+            <div id="placeholders" class="mt-3 small"></div>
+
+            <hr />
+            <h6>История генераций</h6>
+            <div id="history-list" class="small"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
